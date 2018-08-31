@@ -1,0 +1,30 @@
+{
+  "name": "codingdesk",
+  "version": "1.0.0",
+  "description": "aggregator for co-working spaces ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/namrata9503/codingdesk.git"
+  },
+  "keywords": [
+    "co-working",
+    "space",
+    "marketing",
+    "shared",
+    "office"
+  ],
+  "author": "Namrata Chaudhari <nam9503@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/namrata9503/codingdesk/issues"
+  },
+  "homepage": "https://github.com/namrata9503/codingdesk#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
