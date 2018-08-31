@@ -19,7 +19,7 @@ app.get('/', (request, response) => {
 app.get('/api/v1/spaces', spaceController.getSpaces);
 app.get('/api/v1/spaces/:id', spaceController.getSpaceById);
 app.post('/api/v1/spaces/new', spaceController.postNewSpace);
-app.put('/api/v1/spaces/:id',spaceController.editSpace);
+app.put('/api/v1/spaces/:id',spaceController.putSpace);
 app.delete('/api/v1/spaces/:id', spaceController.deleteSpace)
 
 
