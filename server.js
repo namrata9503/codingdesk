@@ -5,7 +5,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
 app.get('/',(request,response)=>{
-    response.json("Hello World");
+    response.send("Hello World");
 })
 
 
