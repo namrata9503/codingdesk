@@ -5,19 +5,19 @@ const spaceSchema = new mongoose.Schema({
     slug: String,
     address: {
         area: String,
-        pincode: number,
+        pincode: Number,
         city: String,
         state: String,
         country: String,
-        latitude: number,
-        longitude: number
+        latitude: Number,
+        longitude: Number
     },
     description: String,
     photos: Array,
     owners: String,
     managers: String,
     amanities: Array,
-    size: number,
+    size: Number,
     timing: {
         monday: {
             start: Date,
