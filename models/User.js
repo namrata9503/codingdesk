@@ -1,4 +1,4 @@
-const mongoose=require('mongoose')
+const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
     username: String,
@@ -11,8 +11,8 @@ const userSchema = new mongoose.Schema({
     lastName: String,
     middleName: String,
     facebbok: String,
-    google:String,
-    tokens:Array
+    google: String,
+    tokens: Array
 
 
 })
