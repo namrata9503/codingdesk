@@ -11,3 +11,7 @@ const blogSchema=new mongoose.Schema({
     username: String
 
 })
+
+const Blog = mongoose.model('Blog', blogSchema);
+
+module.exports = Blog;

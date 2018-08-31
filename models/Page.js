@@ -5,3 +5,7 @@ const pageSchema= new mongoose.Schema({
     body:{type:mongoose.Types.Mixed},
     slug: String
 })
+
+const Page = mongoose.model('Pgae', pageSchema);
+
+module.exports = Page;

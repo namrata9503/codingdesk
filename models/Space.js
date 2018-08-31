@@ -60,3 +60,7 @@ const spaceSchema = new mongoose.Schema({
     createdBy: {type:mongoose.Types.ObjectId},
     review: Array
 })
+
+const Space = mongoose.model('Space', spaceSchema);
+
+module.exports = Space;
