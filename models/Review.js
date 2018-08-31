@@ -5,7 +5,8 @@ const reviewSchema= new mongoose.Schema({
     spaceId: Number,
     rating: Number,
     createdAt: Date,
-    description: String,
-    votes: Number
+    votes: Number,
+    description: String
+  
 
 })
