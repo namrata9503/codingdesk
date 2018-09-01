@@ -58,8 +58,35 @@ exports.getSpaceById = (request, response) => {
 
 
 }
-exports.postCreateNewSpace = () => {
+exports.postCreateNewSpace = (request, response) => {
+    console.log(request.body);
+  let {
+    name,
+    slug,
+    amanities,
+    size,
+    address,
+    timing,
+    social,
+    createdAt,
+    createdBy
+  } = request.body;
 
+  var space = new Space({
+    name,
+    slug,
+    amanities,
+    size,
+    address,
+    timing,
+    social,
+    createdAt,
+    createdBy
+  });
+  space.save().then((space) => {
+    console.log('Added successfully');
+    response.json(space);
+  });
 }
 
 exports.putUpdateSpace = () => {

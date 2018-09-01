@@ -57,7 +57,7 @@ const spaceSchema = new mongoose.Schema({
     },
     createdAt: Date,
     updatedAt: Date,
-    createdBy: {type:mongoose.Types.ObjectId},
+    createdBy: String,
     review: Array
 })
 
