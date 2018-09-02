@@ -20,8 +20,8 @@ app.get('/', (request, response) => {
  app.get('/api/v1/spaces', spaceController.getAllSpaces);
  app.get('/api/v1/spaces/:id', spaceController.getSpaceById);
  app.post('/api/v1/spaces/new', spaceController.postCreateNewSpace);
-// app.put('/api/v1/spaces/:id',spaceController.putUpdateSpace);
-// app.delete('/api/v1/spaces/:id', spaceController.deleteSpace)
+ app.put('/api/v1/spaces/:id',spaceController.putUpdateSpace);
+ app.delete('/api/v1/spaces/:id', spaceController.deleteSpace)
 
 // app.get('/api/v1/users, ')
 
