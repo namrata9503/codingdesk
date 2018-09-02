@@ -1,9 +1,10 @@
-const User = require('../models/User')
-
-exports.getAllUsers = (request, response) => {
+const Blog = require('../models/Blog')
 
 
-    User.find({}, (error, users) => {
+exports.getAllBlogs = (request, response) => {
+
+
+    Blog.find({}, (error, blogs) => {
 
         if (error) {
             response.json({
@@ -11,10 +12,10 @@ exports.getAllUsers = (request, response) => {
                 status: 500
             })
         }
-        if (users) {
+        if (blogs) {
             response.json({
-                data: users,
-                message: "users data fetched",
+                data: blogs,
+                message: "blogs data fetched",
                 status: 200
             })
         }
@@ -31,8 +32,8 @@ exports.getAllUsers = (request, response) => {
 
 }
 
-exports.getUserById = (request, response) => {
-    User.findById(request.params.id, (error, users) => {
+exports.getBlogById = (request, response) => {
+    Blog.findById(request.params.id, (error, blogs) => {
 
         if (error) {
             response.json({
@@ -40,10 +41,10 @@ exports.getUserById = (request, response) => {
                 status: 500
             })
         }
-        if (users) {
+        if (blogs) {
             response.json({
-                data: users,
-                message: request.params.id + " user id fetched",
+                data: blogs,
+                message: request.params.id + " blog id fetched",
                 status: 200
             })
         }
@@ -56,30 +57,31 @@ exports.getUserById = (request, response) => {
     })
 }
 
-exports.postUser = (request, response) => {
-
+exports.postBlog = (request, response) => {
     console.log(request.body);
-    let user = new User({
-        username: request.body.username,
-        email: request.body.email,
-        createdAt: request.body.createdAt,
-        firstName: request.body.firstName
+    // let {
+    //     autherName, title,description
+    // } = request.body;
 
-    })
-    user.save().then((user) => {
-        console.log('user Added')
-        response.json(user)
-    })
+    var blog = new Blog({
+        autherName : request.body.autherName,
+         title : request.body.title,
+         description : request.body.description
+    });
+    blog.save().then((blog) => {
+        console.log('Added');
+        response.json(blog);
+    });
 }
 
-exports.updateUser = (request, response) => {
+exports.updateBlog = (request, response) => {
     console.log(request.body);
     let {
-        username, email, firstName, createdAt
+        autherName, title,description
     } = request.body;
-    User.updateOne({ _id: request.params.id }, {
-        username, email, firstName, createdAt
-    }, {}, (error, user) => {
+    Blog.updateOne({ _id: request.params.id }, {
+        autherName, title,description
+    }, {}, (error, blog) => {
         if (error)
             response.json({
 
@@ -87,11 +89,12 @@ exports.updateUser = (request, response) => {
                 status: 500
             })
 
-        response.json(user)
+        response.json(blog)
+        console.log("updated")
     });
 }
-exports.deleteUser = (request, response) => {
-    User.findByIdAndDelete({ _id: request.params.id }, (error, id) => {
+exports.deleteBlog = (request, response) => {
+    Blog.findByIdAndDelete({ _id: request.params.id }, (error, id) => {
         if (error)
             response.json({
 

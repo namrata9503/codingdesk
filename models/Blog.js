@@ -10,7 +10,7 @@ const blogSchema=new mongoose.Schema({
     likes: Number,
     username: String
 
-})
+}) 
 
 const Blog = mongoose.model('Blog', blogSchema);
 

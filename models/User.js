@@ -13,8 +13,6 @@ const userSchema = new mongoose.Schema({
     facebbok: String,
     google: String,
     tokens: Array
-
-
 })
 
 const User = mongoose.model('User', userSchema);

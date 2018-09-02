@@ -2,54 +2,55 @@ const Space = require('../models/Space')
 
 
 exports.getAllSpaces = (request, response) => {
-    var limit = parseInt(request.body.limit) ||10;
+   
 
-    var query =  Space.find().limit(limit);
-    console.log(query);
+    Space.find({}, (error, spaces) => {
 
-    if(request.query.name){
-        query.where({name : request.query.name})
-    }
-    if(request.query.city){
-        query.where(address.city).equals(request.query.city)
-    }
-    query.exec((error, space)=>{
-        if (error) 
+        if (error) {
             response.json({
                 message: "Server error, Please try after some time.",
                 status: 500
             })
-        
-        response.json(space)
-    })
-    // Space.find({}, (error, spaces) => {
+        }
+        if (spaces) {
+            response.json({
+                data: spaces,
+                message: "Space data fetched",
+                status: 200
+            })
+        }
+        else {
+            response.json({
 
-    //     if (error) {
+                message: "No data found",
+                status: 200
+            })
+        }
+
+    })
+
+
+}
+ // var limit = parseInt(request.body.limit) ||10;
+
+    // var query =  Space.find().limit(limit);
+    // console.log(query);
+
+    // if(request.query.name){
+    //     query.where({name : request.query.name})
+    // }
+    // if(request.query.city){
+    //     query.where(address.city).equals(request.query.city)
+    // }
+    // query.exec((error, space)=>{
+    //     if (error) 
     //         response.json({
     //             message: "Server error, Please try after some time.",
     //             status: 500
     //         })
-    //     }
-    //     if (spaces) {
-    //         response.json({
-    //             data: spaces,
-    //             message: "Space data fetched",
-    //             status: 200
-    //         })
-    //     }
-    //     else {
-    //         response.json({
-
-    //             message: "No data found",
-    //             status: 200
-    //         })
-    //     }
-
+        
+    //     response.json(space)
     // })
-
-
-}
-
 exports.getSpaceById = (request, response) => {
 
     Space.findById(request.params.id, (error, spaces) => {
@@ -78,18 +79,24 @@ exports.getSpaceById = (request, response) => {
 
 }
 exports.postCreateNewSpace = (request, response) => {
+    
     console.log(request.body);
-    let {
-        name, slug, amanities, size, address, timing, social, createdAt, createdBy
-    } = request.body;
-
-    var space = new Space({
-        name, slug, amanities, size, address, timing, social, createdAt, createdBy
-    });
+    let space = new Space({
+      name: request.body.name,
+      slug: request.body.slug,
+      amanaties: request.body.amanaties,
+      size: request.body.size,
+      address: request.body.address,
+      description: request.body.description,
+      timing: request.body.timing,
+      social: request.body.social,
+      createdBy: request.body.createdBy,
+      review: request.body.review
+    })
     space.save().then((space) => {
-        console.log('Added');
-        response.json(space);
-    });
+      console.log('Space Added')
+      response.json(space)
+    })
 }
 
 exports.putUpdateSpace = (request, response) => {

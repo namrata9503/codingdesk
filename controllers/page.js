@@ -1,9 +1,10 @@
-const User = require('../models/User')
-
-exports.getAllUsers = (request, response) => {
+const Page = require('../models/Page')
 
 
-    User.find({}, (error, users) => {
+exports.getAllPages = (request, response) => {
+
+
+    Page.find({}, (error, pages) => {
 
         if (error) {
             response.json({
@@ -11,10 +12,10 @@ exports.getAllUsers = (request, response) => {
                 status: 500
             })
         }
-        if (users) {
+        if (pages) {
             response.json({
-                data: users,
-                message: "users data fetched",
+                data: pages,
+                message: "blogs data fetched",
                 status: 200
             })
         }
@@ -31,8 +32,8 @@ exports.getAllUsers = (request, response) => {
 
 }
 
-exports.getUserById = (request, response) => {
-    User.findById(request.params.id, (error, users) => {
+exports.getPageById = (request, response) => {
+    Page.findById(request.params.id, (error, pages) => {
 
         if (error) {
             response.json({
@@ -40,10 +41,10 @@ exports.getUserById = (request, response) => {
                 status: 500
             })
         }
-        if (users) {
+        if (pages) {
             response.json({
-                data: users,
-                message: request.params.id + " user id fetched",
+                data: pages,
+                message: request.params.id + " page id fetched",
                 status: 200
             })
         }
@@ -56,30 +57,31 @@ exports.getUserById = (request, response) => {
     })
 }
 
-exports.postUser = (request, response) => {
-
+exports.postPage = (request, response) => {
     console.log(request.body);
-    let user = new User({
-        username: request.body.username,
-        email: request.body.email,
-        createdAt: request.body.createdAt,
-        firstName: request.body.firstName
+    // let {
+    //     autherName, title,description
+    // } = request.body;
 
-    })
-    user.save().then((user) => {
-        console.log('user Added')
-        response.json(user)
-    })
+    var page = new Page({
+        body : request.body.body,
+         title : request.body.title,
+         slug : request.body.slug
+    });
+    page.save().then((page) => {
+        console.log('Added');
+        response.json(page);
+    });
 }
 
-exports.updateUser = (request, response) => {
+exports.updatePage = (request, response) => {
     console.log(request.body);
     let {
-        username, email, firstName, createdAt
+        autherName, title,description
     } = request.body;
-    User.updateOne({ _id: request.params.id }, {
-        username, email, firstName, createdAt
-    }, {}, (error, user) => {
+    Page.updateOne({ _id: request.params.id }, {
+        autherName, title,description
+    }, {}, (error, page) => {
         if (error)
             response.json({
 
@@ -87,11 +89,12 @@ exports.updateUser = (request, response) => {
                 status: 500
             })
 
-        response.json(user)
+        response.json(page)
+        console.log("updated")
     });
 }
-exports.deleteUser = (request, response) => {
-    User.findByIdAndDelete({ _id: request.params.id }, (error, id) => {
+exports.deletePage = (request, response) => {
+    Page.findByIdAndDelete({ _id: request.params.id }, (error, id) => {
         if (error)
             response.json({
 

@@ -1,9 +1,10 @@
-const User = require('../models/User')
-
-exports.getAllUsers = (request, response) => {
+const Review = require('../models/Review')
 
 
-    User.find({}, (error, users) => {
+exports.getAllReviews = (request, response) => {
+
+
+    Review.find({}, (error, reviews) => {
 
         if (error) {
             response.json({
@@ -11,9 +12,9 @@ exports.getAllUsers = (request, response) => {
                 status: 500
             })
         }
-        if (users) {
+        if (reviews) {
             response.json({
-                data: users,
+                data: reviews,
                 message: "users data fetched",
                 status: 200
             })
@@ -31,8 +32,8 @@ exports.getAllUsers = (request, response) => {
 
 }
 
-exports.getUserById = (request, response) => {
-    User.findById(request.params.id, (error, users) => {
+exports.getReviewById = (request, response) => {
+    Review.findById(request.params.id, (error, reviews) => {
 
         if (error) {
             response.json({
@@ -40,10 +41,10 @@ exports.getUserById = (request, response) => {
                 status: 500
             })
         }
-        if (users) {
+        if (reviews) {
             response.json({
-                data: users,
-                message: request.params.id + " user id fetched",
+                data: reviews,
+                message: request.params.id + " review id fetched",
                 status: 200
             })
         }
@@ -56,30 +57,29 @@ exports.getUserById = (request, response) => {
     })
 }
 
-exports.postUser = (request, response) => {
-
-    console.log(request.body);
-    let user = new User({
-        username: request.body.username,
-        email: request.body.email,
-        createdAt: request.body.createdAt,
-        firstName: request.body.firstName
-
-    })
-    user.save().then((user) => {
-        console.log('user Added')
-        response.json(user)
-    })
-}
-
-exports.updateUser = (request, response) => {
+exports.postReview = (request, response) => {
     console.log(request.body);
     let {
-        username, email, firstName, createdAt
+        title, description
     } = request.body;
-    User.updateOne({ _id: request.params.id }, {
-        username, email, firstName, createdAt
-    }, {}, (error, user) => {
+
+    var review = new Review({
+        title, description
+    });
+    review.save().then((review) => {
+        console.log('Added');
+        response.json(review);
+    });
+}
+
+exports.updateReview = (request, response) => {
+    console.log(request.body);
+    let {
+        title, description
+    } = request.body;
+    Review.updateOne({ _id: request.params.id }, {
+        title, description
+    }, {}, (error, review) => {
         if (error)
             response.json({
 
@@ -87,11 +87,12 @@ exports.updateUser = (request, response) => {
                 status: 500
             })
 
-        response.json(user)
+        response.json(review)
+        console.log("updated")
     });
 }
-exports.deleteUser = (request, response) => {
-    User.findByIdAndDelete({ _id: request.params.id }, (error, id) => {
+exports.deleteReview = (request, response) => {
+    Review.findByIdAndDelete({ _id: request.params.id }, (error, id) => {
         if (error)
             response.json({
 
