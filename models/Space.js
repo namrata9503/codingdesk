@@ -12,6 +12,7 @@ const spaceSchema = new mongoose.Schema({
         latitude: Number,
         longitude: Number
     },
+    
     description: String,
     photos: Array,
     owners: String,

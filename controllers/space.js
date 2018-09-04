@@ -3,54 +3,58 @@ const Space = require('../models/Space')
 
 exports.getAllSpaces = (request, response) => {
    
+ var limit = parseInt(request.query.limit) ||10;
 
-    Space.find({}, (error, spaces) => {
+ var query =  Space.find().limit(limit);
+ console.log(request.query);
 
-        if (error) {
-            response.json({
-                message: "Server error, Please try after some time.",
-                status: 500
-            })
-        }
-        if (spaces) {
-            response.json({
-                data: spaces,
-                message: "Space data fetched",
-                status: 200
-            })
-        }
-        else {
-            response.json({
-
-                message: "No data found",
-                status: 200
-            })
-        }
-
-    })
-
-
+ if(request.query.name){
+     query.where({name : request.query.name})
+ }
+ if(request.query.slug){
+    query.where({slug : request.query.slug})
 }
- // var limit = parseInt(request.body.limit) ||10;
+ if(request.query.city){
+     query.where('address.city').equals(request.query.city)
+ }
+ query.exec((error, space)=>{
+     if (error) 
+         response.json({
+             message: "Server error, Please try after some time.",
+             status: 500
+         })
+     
+     response.json(space)
+ })
+}
 
-    // var query =  Space.find().limit(limit);
-    // console.log(query);
+    // Space.find({}, (error, spaces) => {
 
-    // if(request.query.name){
-    //     query.where({name : request.query.name})
-    // }
-    // if(request.query.city){
-    //     query.where(address.city).equals(request.query.city)
-    // }
-    // query.exec((error, space)=>{
-    //     if (error) 
+    //     if (error) {
     //         response.json({
     //             message: "Server error, Please try after some time.",
     //             status: 500
     //         })
-        
-    //     response.json(space)
+    //     }
+    //     if (spaces) {
+    //         response.json({
+    //             data: spaces,
+    //             message: "Space data fetched",
+    //             status: 200
+    //         })
+    //     }
+    //     else {
+    //         response.json({
+
+    //             message: "No data found",
+    //             status: 200
+    //         })
+    //     }
+
     // })
+
+
+
 exports.getSpaceById = (request, response) => {
 
     Space.findById(request.params.id, (error, spaces) => {
